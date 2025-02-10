@@ -1,0 +1,65 @@
+.filter-section {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.filter-section h5 {
+    display: flex;
+    align-items: center;
+}
+
+.filter-section h5::before {
+    content: '\1F50D'; /* Unicode magnifying glass */
+    font-size: 1.2em;
+    color: green;
+    margin-right: 10px;
+}
+ 
+.product-card {
+    text-align: center;
+    border: 1px solid #231d6f;
+    border-radius: 10px;
+    padding: 20px;
+    transition: transform 0.3s;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+.product-card img {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 10px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+.pagination .page-link {
+    color: green;
+    border-radius: 50%;
+    margin: 0 5px;
+    border: 1px solid green;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: green;
+    color: white;
+    border-color: green;
+}
+
+.pagination .page-link:hover {
+    background-color: rgba(0, 128, 0, 0.1);
+}
+
+.discount-section img {
+    border-radius: 10px;
+}
+
+.discount-section button {
+    background-color: green;
+    border: none;
+}

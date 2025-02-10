@@ -1,0 +1,248 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Product Grid</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+    {% include 'chat/navbar.html' %}
+    <div class="container mb-0">
+        <button style="position: absolute; top: 125px; right: 130px; border-radius: 10px;">
+            <a class="mb-0" href="{% url 'shops:shops_list' %}">
+                <p class="mb-0" style="color: rgb(5, 5, 5);">select store</p>
+            </a>
+        </button>
+    </div>
+    <div class="container mt-0" style="justify-content: end; align-content: end;">
+        <aside class="sidebar mt-4">
+            <h5 class="onetext">All Categories</h3>
+            <ul class="onetext">
+                <li><input type="checkbox" style="background-color: #00B207;"> Milk Tea (12)</li>
+                <li><input type="checkbox" style="background-color: #00B207;"> Fruit Tea (10)</li>
+                <li><input type="checkbox" style="background-color: #00B207;"> Cold Brew (8)</li>
+                <li><input type="checkbox" style="background-color: #00B207;"> Smoothies (5)</li>
+                <li><input type="checkbox" style="background-color: #00B207;"> Protein Shakes (6)</li>
+            </ul>
+            <h5 class="onetext">Price</h5>
+            <input type="range" min="50" max="500" step="10">
+            <h5>Rating</h5>
+            <ul class="onetext">
+                <li>★★★★★ (5.0)</li>
+                <li>★★★★☆ (4.5)</li>
+                <li>★★★☆☆ (3.5)</li>
+            </ul>
+            <div class="discount-banner onetext">20% Discount on orders above $20!</div>
+            <h5 class="onetext">Sale Products</h5>
+            <ul class="onetext">
+                <li>Classic Bubble Tea - $3.50</li>
+                <li>Strawberry Smoothie - $4.00</li>
+            </ul>
+        </aside>
+        <main class="product-grid">
+            {% if query %}
+                {% for product in results %}
+                <div class="product">
+                    <img src="{{product.product_image_url}}" alt="{{product.product_name}}">
+                    <div class="product-info">
+                        <h5 class="onetext">{{product.product_name}}</h5>
+                        <h5 class="onetext" style="margin-top: -10px;">{{product.product_price}}</h5>
+                    </div>
+                    <div style="position: absolute; right: 210px; top: 45px;" class="product-action">
+                        <button style="border-radius: 30px;" class="e-button"
+                            data-product-image="{{ product.product_image_url }}"
+                            data-product-name="{{ product.product_name }}"
+                            data-product-description="{{product.product_description}}"
+                            data-product-price="{{ product.product_price }}">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div style="position: absolute; top:6px; left: 5px;">
+                        <form action="{% url 'products:add_to_wishlist' product.id %}" method="POST">
+                            {% csrf_token %}
+                            <a href="{% url 'chat:profile_detail' %}">
+                                <button type="submit" style="border-radius: 30px;">
+                                    <img style="height: 30px; width: 20px; margin: 0px;" src="{% static 'icons/image.png' %}" alt="">
+                                </button>
+                            </a>
+                        </form>
+                    </div>
+                    <a href="{% url 'products:view_product' product.id %}">
+                        <div style="position: absolute; bottom: 5px; right: 5px;">
+                            <img style="height: 40px; width: 40px;" src="{% static 'images/cart.png' %}" alt="">
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            {% else %}
+                {% for product in products %}
+                <div class="product">
+                    <img src="{{product.product_image_url}}" alt="{{product.product_name}}">
+                    <div class="product-info">
+                        <h5 class="onetext">{{product.product_name}}</h5>
+                        <h5 class="onetext" style="margin-top: -10px;">{{product.product_price}}</h5>
+                    </div>
+                    <div style="position: absolute; right: 210px; top: 45px;" class="product-action">
+                        <button style="border-radius: 30px;" class="e-button"
+                            data-product-image="{{ product.product_image_url }}"
+                            data-product-name="{{ product.product_name }}"
+                            data-product-description="{{product.product_description}}"
+                            data-product-price="{{ product.product_price }}">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div style="position: absolute; top:6px; left: 5px;">
+                        <form action="{% url 'products:add_to_wishlist' product.id %}" method="POST">
+                            {% csrf_token %}
+                            <a href="{% url 'chat:profile_detail' %}">
+                                <button type="submit" style="border-radius: 30px;">
+                                    <img style="height: 30px; width: 20px; margin: 0px;" src="{% static 'icons/image.png' %}" alt="">
+                                </button>
+                            </a>
+                        </form>
+                    </div>
+                    <a href="{% url 'products:view_product' product.id %}">
+                        <div style="position: absolute; bottom: 5px; right: 5px;">
+                            <img style="height: 40px; width: 40px;" src="{% static 'images/cart.png' %}" alt="">
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <div class="modal-body">
+                <div class="main-image">
+                    <img id="modalProductImage" src="" alt="">
+                </div>
+                <div class="product-details"> 
+                    <h1 id="modalProductName"></h1>
+                    <p style="margin-top: -70px;" id="modalProductDescription"></p> 
+                    <h3 style="margin-top: -50px;" id="modalProductPrice"></h3>
+                    <span class="quantity-container">
+                        <input style="outline: 1px solid #00B207; border-radius: 5px;" type="number" id="quantity" name="quantity" min="1" value="1">
+                        <button class="add-to-cart">add to wishlist</button>
+                        <i style="font-size: 40px; margin-left: 10px;" class="fa fa-heart"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("productModal");
+    const closeModal = document.getElementById("closeModal");
+
+    // Elements in the modal
+    const modalProductImage = document.getElementById("modalProductImage");
+    const modalProductName = document.getElementById("modalProductName");
+    const modalProductDescription = document.getElementById('modalProductDescription');
+    const modalProductPrice = document.getElementById("modalProductPrice");
+
+    // Select all buttons that trigger the modal
+    const buttons = document.querySelectorAll(".e-button");
+
+    buttons.forEach(button => {
+        button.addEventListener("click", function () {
+            // Retrieve product details from button attributes
+            const productImage = this.getAttribute("data-product-image");
+            const productName = this.getAttribute("data-product-name");
+            const productDescription = this.getAttribute('data-product-description'); // Fix typo
+            const productPrice = this.getAttribute("data-product-price");
+
+            // Set modal content
+            modalProductImage.src = productImage; // Main Image
+            modalProductName.textContent = productName;
+            modalProductDescription.textContent = productDescription; // Fix typo
+            modalProductPrice.textContent = "$" + productPrice; // Ensure price is formatted
+
+            // Show modal
+            modal.style.display = "flex";
+        });
+    });
+
+    // Close the modal when clicking the close button
+    closeModal.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    // Close the modal when clicking outside the content area
+    window.addEventListener("click", function (e) {
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
+    // Allow clicking on small images to update the main image
+    document.querySelectorAll(".image-gallery img").forEach(img => {
+        img.addEventListener("click", function () {
+            modalProductImage.src = this.src;
+        });
+    });
+});
+
+
+document.querySelectorAll('.heart-icon').forEach(function(icon) {
+        icon.addEventListener('click', function() {
+            var productId = icon.getAttribute('data-product-id');
+            
+            fetch(`/add-to-wishlist/${productId}/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token for security
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.in_wishlist !== undefined) {
+                    // Update the heart icon based on the wishlist status
+                    if (data.in_wishlist) {
+                        icon.querySelector('i').classList.replace('fa-heart-o', 'fa-heart');
+                        icon.querySelector('i').style.color = 'red';
+                    } else {
+                        icon.querySelector('i').classList.replace('fa-heart', 'fa-heart-o');
+                        icon.querySelector('i').style.color = 'initial';
+                    }
+                } else if (data.error) {
+                    alert(data.error);  // Handle errors (e.g., if the user is not authenticated)
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+
+</script>
+    {% include 'chat/footer.html' %}
+    <!-- Include Font Awesome for the heart icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

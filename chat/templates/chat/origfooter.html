@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refreshify Footer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <!-- Column 1: Social Media Links -->
+                <div class="col-md-4 mb-3">
+                    <h5>Refreshify</h5>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-youtube"></i></a>
+                    </div>
+                    <p class="mt-2 mb-0">
+                        <a href="tel:+2195550114" class="text-white">(219) 555-0114</a> <br>
+                        <a href="mailto:Proxy@gmail.com" class="text-white">Proxy@gmail.com</a>
+                    </p>
+                </div>
+
+                <!-- Column 2: App Links -->
+                <div class="col-md-4 mb-3 text-center">
+                    <h5>Download Mobile App</h5>
+                    <a href="#" class="d-block mb-2">
+                        <img width="230px" height="50px" src="{% static 'images/playstore.png' %}" alt="App Store">
+                    </a>
+                    <a href="#">
+                        <img width="230px" height="50px" src="{% static 'images/google play.png' %}" alt="Google Play">
+                    </a>
+                </div> 
+    
+                <!-- Column 3: About Us -->
+                <div class="col-md-4">
+                    <h5>About Us</h5>
+                    <p>
+                        At Refreshify, we're passionate about delivering refreshing, high-quality drinks right to your door. 
+                        Our curated selection from local tea shops and artisans ensures there’s something for every taste—whether it’s bubble tea, cold brew, or fresh juices.
+                    </p>
+                    <p class="mb-0">Sip happy. Live refreshed.</p>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="text-center mt-3">
+                <small>Refreshify © 2024. All Rights Reserved</small>
+                <div class="mt-2">
+                    <i class="bi bi-apple-pay"></i>
+                    <i class="bi bi-cc-visa"></i>
+                    <i class="bi bi-credit-card-2-back"></i>
+                    <i class="bi bi-paypal"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

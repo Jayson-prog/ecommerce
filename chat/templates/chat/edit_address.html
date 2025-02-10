@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>refreshify : update address</title>
+    <link rel="stylesheet" href="{% static 'css/update-address.css' %}">
+</head>
+<body>
+    <div class="container-fluid" style="position: absolute; top: 20px; left: 20px;">
+        <a href="{% url 'chat:profile_detail' %}">back</a>
+    </div>
+    <div class="form-container">
+        <h2>Update Your Delivery Address</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="tooltip">
+                <label for="province">Province</label>
+                <span class="tooltip-text">Enter your province</span>
+                <input type="text" name="province" id="province" placeholder="Enter province" required>
+            </div>
+
+            <div class="tooltip">
+                <label for="municipality">Municipality</label>
+                <span class="tooltip-text">Enter your municipality</span>
+                <input type="text" name="municipality" id="municipality" placeholder="Enter municipality" required>
+            </div>
+
+            <div class="tooltip">
+                <label for="street">Street</label>
+                <span class="tooltip-text">Enter your street</span>
+                <input type="text" name="street" id="street" placeholder="Enter street" required>
+            </div>
+
+            <div class="tooltip">
+                <label for="postal_code">Postal Code</label>
+                <span class="tooltip-text">Enter your postal code</span>
+                <input type="number" name="postal_code" id="postal_code" placeholder="Enter postal code" required>
+            </div>
+            
+            <button type="submit">Save</button>
+
+        </form>
+    </div>
+</body>
+</html>

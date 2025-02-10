@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div>
+        <h2>Daily Sales</h2>
+        <canvas id="dailySalesChart"></canvas>
+    </div>
+    
+    <div>
+        <h2>Monthly Sales</h2>
+        <canvas id="monthlySalesChart"></canvas>
+    </div>
+
+    <div>
+        <h2>Top 5 Most Bought Products</h2>
+        <canvas id="mostBoughtProductsChart"></canvas>
+    </div>
+
+    <script>
+        // Prepare the data for Daily Sales Chart
+        var dailySalesData = {
+            labels: {{ daily_sales_data.labels|safe }},
+            datasets: [{
+                label: 'Quantity Sold Today',
+                data: {{ daily_sales_data.data|safe }},
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
+    
+        // Prepare the data for Monthly Sales Chart
+        var monthlySalesData = {
+            labels: {{ monthly_sales_data.labels|safe }},
+            datasets: [{
+                label: 'Quantity Sold This Month',
+                data: {{ monthly_sales_data.data|safe }},
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1
+            }]
+        };
+    
+        // Prepare the data for Most Bought Products Chart
+        var mostBoughtProductsData = {
+            labels: {{ most_bought_products_data.labels|safe }},
+            datasets: [{
+                label: 'Quantity Sold',
+                data: {{ most_bought_products_data.data|safe }},
+                backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                borderColor: 'rgba(255, 159, 64, 1)',
+                borderWidth: 1
+            }]
+        };
+    
+        // Create the Daily Sales Chart
+        var ctxDaily = document.getElementById('dailySalesChart').getContext('2d');
+        var dailySalesChart = new Chart(ctxDaily, {
+            type: 'bar',
+            data: dailySalesData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    
+        // Create the Monthly Sales Chart
+        var ctxMonthly = document.getElementById('monthlySalesChart').getContext('2d');
+        var monthlySalesChart = new Chart(ctxMonthly, {
+            type: 'bar',
+            data: monthlySalesData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    
+        // Create the Most Bought Products Chart
+        var ctxMostBought = document.getElementById('mostBoughtProductsChart').getContext('2d');
+        var mostBoughtProductsChart = new Chart(ctxMostBought, {
+            type: 'pie',
+            data: mostBoughtProductsData,
+            options: {
+                responsive: true
+            }
+        });
+    </script>
+    
+</body>
+</html>
